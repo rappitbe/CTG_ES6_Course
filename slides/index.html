@@ -1,0 +1,325 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="logoslide nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="images/jsvalley/JSValley-fb.png"></span>
+      <p class="fs-48">Welcome!</p>
+    </article>
+  </slide>
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/JSValley/es6.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>About me</h2>
+    </hgroup>
+    <article>
+      <ul class="build fade">
+        <li>Lecturer at Hogent</li>
+        <li>Full stack JS developer</li>
+        <li>Started teaching JS in 2011</li>
+        <li>Got inspired in 2012</li>
+      </ul>
+    </article>
+    <aside class="note">
+      <section style="text-align: center">
+        <img src="images/jsvalley/google-i-o-2012.jpg">
+      </section>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>About me</h2>
+    </hgroup>
+    <article>
+      <ul class="build fade">
+        <li>Pushed my first mobile website to the web in december 2012</li>
+        <li>PHP Backend (YII) and JS/JQuery front end with</li>
+        <ul>
+          <li>Grunt (Minification, Image Optimazation, Livereload, Linting, ...)
+          <li>Bower</li>
+          <li>Sass</li>
+        </ul>
+        <li>Started using Backbone and Marionnette in 2013 and replaced Yii by Node/Express</li>
+        <li>Build a framework on top of Marionette (and stopped using JQuery) </li>
+        <li>Switched to ReactJS in october 2014 (and started using Coffeescript)</li>
+      </ul>
+    </article>
+    <aside class="note">
+      <section style="text-align: center">
+        <img src="images/jsvalley/yeoman.jpg">
+      </section>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>About me</h2>
+    </hgroup>
+    <article>
+      <ul class="build fade">
+        <li>Feb 2015. A Facebook dev post got my attention</li>
+        <li>Proof of concept: Migrate NodeJS back end from Coffee to ES6.</li>
+        <li>Been using ES6/ES7 ever since </li>
+        <li>Build 2 large applications with ES6-ES7</li>
+        <li>Color Management software (Rappit BVBA)</li>
+        <li>Summer 2015: freelance assignment at ITP: Smart City App</li>
+        <ul>
+          <li>Node Js Back end</li>
+          <li>Building multiple NodeJS libraries, services, datalayers</li>
+          <li>written in ES6 and ES7 and compiled w Babel</li>
+          <li>Testdriven/CI </li>
+        </ul>
+        <li>Today, both projects are running succesful in production </li>
+        <li>Started a new web apps course (MEAN stack) at Hogent in 2014</li>
+        <li>The Coder Faction and JSValley in 2016</li>
+      </ul>
+    </article>
+    <aside class="note">
+      <section style="text-align: center">
+        <img src="images/jsvalley/babel.png" style="width:500px">
+      </section>
+    </aside>
+  </slide>
+
+  <slide>
+  	<hgroup>
+  		<h2>Define ES6</h2>
+  	</hgroup>
+
+  	<article>
+      <ul class="build fade">
+        <li>EcmaScript vs JavaScript</li>
+        <li>EcmaScript is a language spec</li>
+        <li>JavaScript implements that spec/API</li>
+        <li>Ecma (European Computer Manufacturer Assoc)</li>
+        <li>Help facilitate discussion around changes</li>
+        <li>Form a committee for decision making</li>
+        <li>TC39 Goals</li>
+        <ul class="fade">
+          <li>
+            Better Language
+          </li>
+          <li>Testable Specification</li>
+          <li>Adopt de facto standards where possible</li>
+        </ul>
+      </ul>
+  	</article>
+    <aside class="note">
+      <section style="text-align: center;">
+        TC39
+      </section>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Currently</h2>
+    </hgroup>
+
+    <article>
+      <ul class="build fade">
+        <li>TC39 has finalized ES6 in June 2015</li>
+        <li>TC39 is proposing features for ES7</li>
+        <li>Browser vendors are working on implementing ES6</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="nobackground">
+    <hgroup>
+      <h2>TC39 Notes - esdiscuss.org/notes</h2>
+    </hgroup>
+
+    <article>
+      <iframe data-src="http://esdiscuss.org/notes"></iframe>
+    </article>
+  </slide>
+
+
+  <slide class="nobackground">
+    <hgroup>
+      <h2>Harmony or ES.Next or ES6</h2>
+    </hgroup>
+
+    <article>
+
+    </article>
+  </slide>
+
+  <slide class="nobackground">
+    <hgroup>
+      <h2>Harmony or ES.Next or ES6</h2>
+    </hgroup>
+
+    <article>
+      <img src="images/buckets.png" alt="" style="width:100%;"/>
+    </article>
+  </slide>
+
+  <slide class="nobackground">
+    <hgroup>
+      <h2>Harmony or ES.Next or ES6</h2>
+    </hgroup>
+
+    <article>
+      <img src="images/bucketharmony.png" alt="" style="width:100%;"/>
+    </article>
+  </slide>
+
+  <slide class="nobackground">
+    <hgroup>
+      <h2>Harmony or ES.Next or ES6</h2>
+    </hgroup>
+
+    <article>
+      <img src="images/bucketnext.png" alt="" style="width:100%;"/>
+    </article>
+  </slide>
+
+  <slide class="nobackground">
+    <hgroup>
+      <h2>Harmony or ES.Next or ES6</h2>
+    </hgroup>
+
+    <article>
+      <img src="images/bucketes6.png" alt="" style="width:100%;"/>
+    </article>
+  </slide>
+
+  <!--COMPATIBILITY TABLE SLIDE-->
+  <slide class="nobackground">
+  	<hgroup>
+  		<h2>ES6 Compatability Table</h2>
+  	</hgroup>
+  	<article>
+  		<iframe data-src="http://kangax.github.io/compat-table/es6/"></iframe>
+  	</article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Tools</h2>
+    </hgroup>
+    <article style="font-size:40px;">
+      <ul class="build fade">
+        <li>Compilation: Babel & Webpack, Gulp, Grunt, ... </li>
+        <li>Linting: <a href="http://eslint.org/">Eslint</a></li>
+        <li>Documentation: <a href="https://esdoc.org/">Esdoc</a></li>
+        <li>Testing: <a href="https://github.com/sindresorhus/ava">Ava</a></li>
+        <li><a href="https://github.com/ericdouglas/ES6-Learning">ES6 Learning</a></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="nobackground">
+    <hgroup>
+      <h2>Migration Coffee to ES6 (Gulp)</h2>
+    </hgroup>
+    <article style="font-size:40px;">
+      <img src="images/jsvalley/gulp.png" style="width:800px">
+    </article>
+  </slide>
+
+  <slide class="nobackground">
+    <hgroup>
+      <h2>Migration Coffee to ES6 (Webpack)</h2>
+    </hgroup>
+    <article style="font-size:40px;">
+      <img src="images/jsvalley/webpack.png" style="width:100%">
+    </article>
+  </slide>
+
+  <slide>
+  	<hgroup>
+  		<h2>FEATURES</h2>
+  	</hgroup>
+  	<!--<article class="fs-24">-->
+
+      <!--<p>-->
+
+
+        <!--<ul>-->
+          <!--<li><a href="ptc.html">Proper Tail Calls</a></li>-->
+        <!--</ul>-->
+      <!--</p>-->
+  	<!--</article>-->
+    <article class="smaller">
+      <p class="list-o-shiz">
+
+        <ul style="display: inline-block;">
+          <li class=""><a href="letconst.html">LET, CONST, and Block</a></li>
+          <li class=""><a href="rest.html">Rest Parameters</a></li>
+          <li class=""><a href="spread.html">Spread Operator</a></li>
+          <li class=""><a href="destructure.html">Destructuring</a></li>
+          <li class=""><a href="arrow.html">Arrow Functions</a></li>
+          <li class=""><a href="defaultparams.html">Default Parameters</a></li>
+        </ul>
+        <ul style="display: inline-block;">
+          <li class=""><a href="classes.html">Classes</a></li>
+          <li class=""><a href="collections.html">Collections, Array methods and String literals</a></li>
+          <li class=""><a href="modules.html">Modules</a></li>
+          <li class=""><a href="promises.html">Promises</a></li>
+          <li class=""><a href="generators.html">Generators</a></li>
+          <li class=""><a href="decorators.html">ES7 Decorators and Async/await</a></li>
+        </ul>
+
+      </p>
+      <p>Exercises: <a href="http://es6katas.org/">http://es6katas.org/</a></p>
+
+    </article>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</body>
+</html>

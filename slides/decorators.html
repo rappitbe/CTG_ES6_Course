@@ -1,0 +1,267 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ES7 decorators & Async/await</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/es6.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title style="display: none;"><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle style="display: none;"><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter style="display: none;"><!-- populated from slide_config.json --></p>
+      <h1>ES7 Async/await & Decorators</h1>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Async with promises</h2>
+    </hgroup>
+      <article>
+  <pre class="prettyprint" data-lang="javascript">
+    function loadStory() {
+      return getJSON('story.json').then(function(story) {
+        addHtmlToPage(story.heading);
+
+        return story.chapterURLs.map(getJSON)
+          .reduce(function(chain, chapterPromise) {
+            return chain.then(function() {
+              return chapterPromise;
+            }).then(function(chapter) {
+              addHtmlToPage(chapter.html);
+            });
+          }, Promise.resolve());
+      }).then(function() {
+        addTextToPage("All done");
+      }).catch(function(err) {
+        addTextToPage("Argh, broken: " + err.message);
+      }).then(function() {
+        document.querySelector('.spinner').style.display = 'none';
+      });
+    }
+  </pre>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>This time with ES7 Async/await</h2>
+    </hgroup>
+      <article>
+  <pre class="prettyprint" data-lang="javascript">
+    <b>async function loadStory()</b> {
+      try {
+        let story = <b>await getJSON('story.json');</b>
+        addHtmlToPage(story.heading);
+        for (let chapter of story.chapterURLs.map(getJSON)) {
+          addHtmlToPage((await chapter).html);
+        }
+        addTextToPage("All done");
+      } catch (err) {
+        addTextToPage("Argh, broken: " + err.message);
+      }
+      document.querySelector('.spinner').style.display = 'none';
+    }
+  </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>ES7 Decorators</h2>
+    </hgroup>
+    <article>
+      <p>Precedence</p>
+      <ul class="build fade">
+        <li>Pythonic proposal by Yehuda Katz</li>
+        <li>In Python, decorators provide a very simple syntax for calling higher-order functions.</li>
+        <li>A Python decorator is a function that takes another function, extending the behavior of the latter function without explicitly modifying it.</li>
+        <li> Decorators are helpful for anything you want to transparently wrap with extra functionality.</li>
+        <li> These include memoization, enforcing access control and authentication, instrumentation and timing functions, logging, rate-limiting,... </li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>ES7 Decorators</h2>
+    </hgroup>
+    <article>
+      <p>ES2016</p>
+      <ul class="build fade">
+        <li>An expression which returns function and can take a target, name and property descriptor as arguments. </li>
+        <li>You apply it by prefixing the decorator with an `@` character and placing this at the very top of what you are trying to decorate. </li>
+        <li>Decorators can be defined for either a class or property.</li>
+        <li>Decorators have not been formally approved</li>
+        <li>however there are various implementations available for transpiling decorator syntax to ES5 syntax</li>
+        <li>Decorators are available in popular frameworks/libraries</li>
+        <li>Typescript supports decorators (core concept in Angular 2.0)</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>ES7 Decorators in action</h2>
+    </hgroup>
+    <article>
+      <p>Decorating a property</p>
+      <pre class="prettyprint" data-lang="javascript">
+      class Cat {
+        meow() { return `${this.name} says Meow!`; }
+      }
+      </pre>
+    </article>
+    <article>
+      <pre class="prettyprint" data-lang="javascript">
+      Object.defineProperty(Cat.prototype, 'meow', {
+        value: specifiedFunction,
+        enumerable: false,
+        configurable: true,
+        writable: true
+      });
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>ES7 Decorators in action</h2>
+    </hgroup>
+    <article>
+      <p>Decorating a property</p>
+      <pre class="prettyprint" data-lang="javascript">
+      function readonly(target, key, descriptor) {
+        descriptor.writable = false;
+        return descriptor;
+      }
+      </pre>
+    </article>
+    <article>
+      <pre class="prettyprint" data-lang="javascript">
+      class Cat {
+        @readonly
+        meow() { return `${this.name} says Meow!`; }
+      }
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>ES7 Decorators in action</h2>
+    </hgroup>
+    <article>
+      <p>You get target, key and descriptor method parameters. They each target different things and have their own properties:</p>
+      <pre class="prettyprint" data-lang="javascript">
+      function readonly(target, key, descriptor) {
+        descriptor.writable = false;
+        return descriptor;
+      }
+      </pre>
+      <ul>
+        <li>target – The class that the decorator is used on.</li>
+        <li>key – If using the decorator on a property, this is the name of the property.</li>
+        <li>descriptor – Contains the properties value, enumerable, configurable, and writable for the property/function.</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>ES7 Decorators in action</h2>
+    </hgroup>
+    <article>
+      <p>Decorating a class</p>
+      <pre class="prettyprint" data-lang="javascript">
+      function gang(name, location) {
+        return function(target) {
+          target.name = name;
+          target.location = location;
+        }
+      }
+      </pre>
+    </article>
+    <article>
+      <pre class="prettyprint" data-lang="javascript">
+      @gang('The Warriors', 'Coney Island');
+      class Group() {}
+
+      @gang('The Riffs', 'Gramercy Park');
+      class Group() {}
+
+      @gang('Turnbull ACs', 'Gunhill');
+      class Group() {}
+    });
+      </pre>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/es6.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2>&lt;Thank You!&gt;</h2>
+    </article>
+    <p class="auto-fadein" data-config-contact>
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="backdrop"></slide>
+  <!---->
+
+</slides>
+
+<!--
+Reflect is effectively a collection of all of those "internal methods" that were available exclusively through the JavaScript engine internals, now exposed in one single, handy object.
+You might be thinking "yeah, but why not just attach these to Object like Object.keys, Object.getOwnPropertyNames etc are?". Here is why:
+
+Reflect has methods that are not meant just for Objects, for example Reflect.apply - which targets a Function. Calling Object.apply(myFunction) would just look weird.
+Having a single object to house these methods is a great way to keep the rest of JavaScript clean, rather than dotting Reflection methods throughout constructors and prototypes - or worse - globals.
+typeof, instanceof, and delete already exist as Reflection operators - adding new keywords like this is not only cumbersome for developers, but also a nightmare for backwards compatibility and explodes the number of reserved words.
+
+Reflect.apply ( target, thisArgument [, argumentsList] )
+
+Reflect.apply is pretty much just Function#apply - it takes a function, and calls it with a context, and an array of arguments. From this point on you could consider the Function#call/Function#apply versions deprecated. This isn't mind blowing, but it makes good sense. Here's how you use it:
+
+-->
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</body>
+</html>

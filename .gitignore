@@ -1,0 +1,4 @@
+exercises/dist/
+exercises/node_modules/
+slides/node_modules/
+.DS_Store

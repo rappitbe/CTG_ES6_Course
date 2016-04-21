@@ -1,0 +1,16 @@
+{
+  "env": {
+    "mocha": true
+  },
+  "rules": {
+    "no-throw-literal": 0,
+    "max-nested-callbacks": 0,
+    "padded-blocks": 0,
+    "camelcase": 0,
+    "no-undef": 0,
+    "no-lone-blocks":0,
+    "no-unused-expressions": 0,
+    "no-new": 0,
+    "no-use-before-define": 0
+  }
+}

@@ -1,0 +1,382 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Spread Operator</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/es6.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title style="display: none;"><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle style="display: none;"><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter style="display: none;"><!-- populated from slide_config.json --></p>
+      <h1>Spread Operator</h1>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Spread Operator ...</h2>
+    </hgroup>
+    <article class="fade build">
+      <h2>and immutable data!</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Spread Operator</h2>
+    </hgroup>
+    <article>
+      <p>
+      <h4><b>'...'</b> before an array</h4>
+      </p>
+<pre class="prettyprint" data-lang="javascript">
+  var nums = [1, 2, 3];
+
+  <b>log(nums);    //logs [1, 2, 3]</b>
+  <b>log(...nums); //logs 1, 2, 3</b>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Spread Operator</h2>
+    </hgroup>
+    <article>
+<pre class="prettyprint" data-lang="javascript">
+  function returnTwo(a,b){
+   return [b,a]; <b>//Flips 'a' and 'b'</b>
+  }
+  var a = [1, 2, 3];
+  var b = <b>returnTwo(a[0], a[1]);</b> // [2, 1]
+  var c = <b>returnTwo(...a);</b> // [2, 1]
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Spread Operator</h2>
+    </hgroup>
+    <article>
+      <h2>What can I do with Spreading?</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Spread Operator</h2>
+    </hgroup>
+    <article>
+      <p>
+      <h4>Combine Arrays</h4>
+      </p>
+<pre class="prettyprint" data-lang="javascript">
+  let nums = [1, 2, 3];
+  let abcs = ['a', 'b', 'c'];
+
+  let alphanum = <b>[ ...nums, ...abcs ]; //[1, 2, 3, 'a', 'b', 'c']</b>
+
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Spread Operator</h2>
+    </hgroup>
+    <article>
+      <p>
+      <h4>Spread Return Vals</h4>
+      </p>
+<pre class="prettyprint" data-lang="javascript">
+  function getNums(){
+   return [1, 2, 3];
+  }
+
+  var b = [0, <b>...getNums()</b>];
+  <b>log(b); // [0, 1, 2, 3]</b>
+
+</pre>
+    </article>
+  </slide>
+
+  <!-- -->
+
+  <slide>
+    <hgroup>
+      <h2>Spread Operator</h2>
+    </hgroup>
+    <article>
+      <p>
+      <h4><b>'...'</b> before an object (ES7)</h4>
+      </p>
+<pre class="prettyprint" data-lang="javascript">
+  let meetup = { name: 'JSValley', start: '18:00', end: '21:30'};
+  let es6Meetup = {
+    date: new Date(),
+    ...meetup
+  }
+  console.log('meetup: ', meetup);
+  console.log('es6 meetup: ', es6Meetup);
+</pre>
+<p>Let's test this with <a href="http://babeljs.io/repl/">Babel</a></p>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>Immutable Data</h2>
+    </hgroup>
+    <article>
+      <p>
+        An immutable object is one whose <b>state</b> cannot be changed after construction.
+      </p>
+      <ul class="fade build">
+        <li> In functional programming languages, such as Clojure and Haskell, immutable data is everywhere.</li>
+        <li> State is the minimal respresentation of the application data</li>
+        <li> The way we choose to manage state in our programs has profound implications on our ability to read, comprehend, and test them. </li>
+        <li> Where do we keep state?</li>
+        <li> How, when, and where do we allow it to mutate? </li>
+
+      </ul>
+    </article>
+  </slide>
+
+<slide class="segue dark quote nobackground">
+  <aside class="gdbar right bottom"><img src="images/es6.png"></aside>
+  <article class="flexbox vleft auto-fadein">
+    <q>
+      Mutable stateful objects are the new spaghetti code: hard to understand, test and reason about. Concurrency disaster!
+
+    </q>
+    <div class="author">
+      Rich Hickey<br>
+      Creator of Clojure<br>
+    </div>
+  </article>
+</slide>
+
+  <slide>
+    <hgroup>
+      <h2>Why Immutable Data</h2>
+    </hgroup>
+    <article>
+      <ul class="fade build">
+        <li>Your data changes are more explicit</li>
+        <li> Avoids copying data over and over </li>
+        <li> Avoids side effects of one thing changing state of another </li>
+        <li> Enables advanced memoization and change detection techniques </li>
+        <li> It makes certain features easier (undo/redo - history) </li>
+        <li> Security (to ensure no one’s messing with our data)</li>
+        <li>Improve component performance (Should component update?) </li>
+        <li>Solves reference equality problem in JS(arrays - objects)
+      </ul>
+    </article>
+    <aside class="note">
+      <section>
+<pre class="prettyprint" data-lang="javascript">
+  var object = { x: 2, y: 4 };
+  performSomething(object);
+  object.x; // ?
+  object.y; // ?
+</pre>
+
+      </section>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Immutable Data</h2>
+    </hgroup>
+
+    <article>
+      <h4 style="margin-bottom:10px">Reference equality problem with arrays</h4>
+<pre class="prettyprint" data-lang="javascript">
+  const state = ["todo1", "todo2"];
+  const mutatedState = state;
+  mutatedState[0] = "newTodo";
+  console.log(mutatedState === state); <b>//Logs???? true/false????</b>
+  console.log(state[0] === "todo1"); <b>//Logs???? true/false????</b>
+
+</pre>
+    </article>
+    <aside class="note">
+      <section>
+<pre class="prettyprint" data-lang="javascript">
+  const state = ["todo1", "todo2"];
+  const mutatedState = state;
+  mutatedState[0] = "newTodo";
+  console.log(mutatedState === state); <b>//Logs true</b>
+  console.log(state[0] === "todo1"); <b>//Logs false</b>
+</pre>
+
+      </section>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Immutable Data</h2>
+    </hgroup>
+
+    <article>
+      <h4 style="margin-bottom:10px">Reference equality problem with objects</h4>
+<pre class="prettyprint" data-lang="javascript">
+  const state = {
+    name: 'Unreal tournament',
+    level: 5
+  };
+  const mutatedState = state;
+  mutatedState.level++;
+  console.log(mutatedState === state); <b>//Logs???? true/false????</b>
+
+</pre>
+    </article>
+    <aside class="note">
+      <section>
+<pre class="prettyprint" data-lang="javascript">
+  const state = {
+    name: 'Unreal tournament',
+    level: 5
+  };
+  const mutatedState = state;
+  mutatedState.level++;
+  console.log(mutatedState === state); <b>//Logs true</b>
+</pre>
+
+      </section>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Immutable Data</h2>
+    </hgroup>
+
+    <article>
+      <h4 style="margin-bottom:10px">Solution for arrays with concat</h4>
+<pre class="prettyprint" data-lang="javascript">
+  const list = [1, 2, 3];
+  const changedList = [].concat(list);
+  changedList[1] = 2;
+
+  list === changedList; // false
+
+</pre>
+    </article>
+  </slide>
+
+<slide>
+
+    <hgroup>
+      <h2>Immutable Data</h2>
+    </hgroup>
+      <article>
+    <h4 style="margin-bottom:10px">Solution for objects with ES6 Object.assign()</h4>
+<pre class="prettyprint" data-lang="javascript">
+  const yourCar = {
+    color: 'red',
+  };
+
+  const yourCarRepainted = Object.assign({}, yourCar, { color: 'blue' });
+
+  yourCarRepainted === yourCar; // false
+
+</pre>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Immutable Data</h2>
+  </hgroup>
+  <article>
+    <h4 style="margin-bottom:10px">Solutions with ES6 spread operator</h4>
+<pre class="prettyprint" data-lang="javascript">
+  const toggleTodo = (todo) => {
+    return {
+      ...todo,
+      completed: !todo.completed
+    };
+  };
+
+</pre>
+
+<pre class="prettyprint" data-lang="javascript">
+  const incrementCounter = (list, index) => {
+    return [
+      ...list.slice(0, index),
+      list[index] + 1,
+      ...list.slice(index + 1)
+    ];
+  };
+
+</pre>
+  </article>
+</slide>
+
+<slide>
+  <hgroup>
+    <h2>Immutable Data & Angular 2.0</h2>
+  </hgroup>
+  <article>
+    <p>
+An Angular 2 application is a reactive system.    </p>
+    <ul class="fade build">
+      <li> Unlike Angular 1.x, the change detection graph is a directed tree. As a result, the system is more performant and predictable.</li>
+      <li> By default, the change detection system walks the whole tree. But if you use immutable objects or observables, you can take advantage of them and check parts of the tree only if they “really change”.
+</li>
+      <li> These optimizations compose and do not break the guarantees the change detection provides.
+</li>
+
+    </ul>
+  </article>
+</slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</body>
+</html>
